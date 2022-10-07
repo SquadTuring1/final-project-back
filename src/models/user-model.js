@@ -30,7 +30,34 @@ const UserSchema = new mongoose.Schema(
         type: String,
         required: [true, "Password is required"],
         minlength: [8, "The password is too short"]
-    }
+    },
+    token: {
+        type: String,
+        required: true
+    },
+    avatar: {
+        type: String
+    },
+    following: [{        
+        type: mongoose.Schema.ObjectId,
+        ref: "user" 
+    }],
+    followedBy: [{        
+        type: mongoose.Schema.ObjectId,
+        ref: "user" 
+    }],
+    likedSongs: [{        
+        type: mongoose.Schema.ObjectId,
+        ref: "song" 
+    }],
+    likedPlaylists: [{        
+        type: mongoose.Schema.ObjectId,
+        ref: "playlist" 
+    }],
+    ownPlaylists: [{        
+        type: mongoose.Schema.ObjectId,
+        ref: "playlist" 
+    }],
 },
 {timestamps: true},
 )
