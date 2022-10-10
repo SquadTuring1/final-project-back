@@ -18,11 +18,10 @@ export const login = async(req,res,next) => {
 
 export const signup = async(req,res,next) => {
     console.log("signup")
-    const { firstName, lastName, email, password} = req.body
+    const { userName, email, password} = req.body
     try{
         const newUser = await UserModel.create({
-            firstName,
-            lastName,
+            userName,
             email,
             password
         })
