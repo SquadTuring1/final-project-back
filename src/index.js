@@ -2,6 +2,7 @@ import app from "./server.js";
 import connectDB from "./db/connect.js";
 import CONFIG from "./config/config.js";
 import swaggerDocs from "./middleware/swagger/swagger.js";
+import UserModel from "./models/User.js";
 
 connectDB().then(async function onServerInit() {
   CONFIG.development.logger.info("DB CONNECTED");
