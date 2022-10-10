@@ -54,10 +54,21 @@ const getCurrnetUser = async (req, res, next) => {
     res.status(200).send({
       currentUser: currentUser,
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
-const deleteUser = () => {};
+const deleteUser = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const userToDelete = await UserModel.findOneAndDelete({ id: id });
+    res.status(200).send({
+      message: "User deleted",
+      userToDelete,
+    });
+  } catch (error) {}
+};
 
 const UserControllerActions = {
   getAllUsers,
