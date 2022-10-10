@@ -6,14 +6,17 @@ const UserSchema = new mongoose.Schema(
     uid: {
         type:String
     },
+    userName: {
+        type:String,
+        required: [true, "Username is required"],
+        unique: true
+    },
     firstName: {
-        type: String,
-        required: [true, "First name is required"],
+        type: String,        
         trim: true
     },
     lastName: {
-        type: String,
-        required: [true, "First name is required"],
+        type: String,        
         trim: true
     },
     email: {
@@ -23,7 +26,7 @@ const UserSchema = new mongoose.Schema(
         unique: true,
         validate: {
             validator: (value) => validator.isEmail(value),
-            message: ({value}) => `the emai ${value} is not valid`
+            message: ({value}) => `the emailadd ${value} is not valid`
         }
     },
     password: {
@@ -33,7 +36,7 @@ const UserSchema = new mongoose.Schema(
     },
     token: {
         type: String,
-        required: true
+        // required: true
     },
     avatar: {
         type: String

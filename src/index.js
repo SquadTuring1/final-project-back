@@ -11,3 +11,4 @@ connectDB().then(async function onServerInit() {
     );
   });
 });
+
