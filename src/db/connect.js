@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 
 // * Connection with Mongo Atlas to cloud database
 const connectDB = () =>{
-    return mongoose.connect(`mongodb+srv://squad_turing:${process.env.ACCESS_MONGO_ATLAS}@cluster0.8hr4egj.mongodb.net/?retryWrites=true&w=majority/final-project`)
+    return mongoose.connect(`mongodb+srv://${process.env.USER_MONGO_ATLAS}:${process.env.PASSWORD_MONGO_ATLAS}@cluster0.8hr4egj.mongodb.net/?retryWrites=true&w=majority`)
 }
 
 export default connectDB

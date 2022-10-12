@@ -27,7 +27,8 @@ export const signup = async(req,res,next) => {
         })
         res.status(201).send({data: "Success! "})
 
-    }catch(error){        
+    }catch(error){ 
+        console.log(error)       
         next(error)
     }
 }
