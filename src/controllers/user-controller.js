@@ -1,12 +1,12 @@
 // import { Error } from "mongoose";
-import UserModel from "../models/user-model.js";
+import User from "../models/User.js";
 
 
 
 export const login = async(req,res,next) => {
     const {email, password} = req.body;    
     try{
-        const userLogged = await UserModel.findOne({email: email})        
+        const userLogged = await User.findOne({email: email})        
         if (userLogged){
             res.status(200).send({data: "User logged!"})
         }       
@@ -20,7 +20,7 @@ export const signup = async(req,res,next) => {
     console.log("signup")
     const { userName, email, password} = req.body
     try{
-        const newUser = await UserModel.create({
+        const newUser = await User.create({
             userName,
             email,
             password
