@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import AccountRouter from "./routes/account-routes.js";
 import UserRouter from "./routes/UserRouter.js";
+import SongRouter from "./routes/SongRouter.js"
 
 const app = express();
 
@@ -15,5 +16,6 @@ app.use(cors({ origin: "*" }));
 // Routers
 app.use(UserRouter);
 app.use(AccountRouter);
+app.use(SongRouter)
 
 export default app;

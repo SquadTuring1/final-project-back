@@ -7,10 +7,11 @@ const SongSchema = new mongoose.Schema(
             trim: true,
             required: [true, "Title is required"]
         },
-        fileUrl: {
-            type:String,
-            required: [true,"Url is required"]
-        },
+        // fileUrl: {
+        //     type:String,
+        //     required: [true,"Url is required"],
+        //     unique: true
+        // },
         thumbnail: {
             type: String
         },
