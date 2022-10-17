@@ -10,12 +10,12 @@ const getAllSongs = async(req, res, next) => {
 }
 
 const createSong = async(req, res, next) => {
-   const { title, fileUrl, thumbnail, released, duration, album, genre, likedBy } = req.body
+   const { title, fileUrl, imageUrl, released, duration, album, genre, likedBy } = req.body
    try{
     const newSong = await SongModel.create({
         title,  
         fileUrl,
-        thumbnail,
+        imageUrl,
         released,
         duration,
         album,
@@ -29,13 +29,13 @@ const createSong = async(req, res, next) => {
 }
 
 const updateSong = async(req, res, next) => {
-    const { title, fileUrl, thumbnail, released, duration, album, genre, likedBy } = req.body
+    const { title, fileUrl, imageUrl, released, duration, album, genre, likedBy } = req.body
     const { id } = req.params
     try{
         const songToUpdate = await SongModel.findOneAndUpdate({id: id}, {$set: {
             title, 
             fileUrl, 
-            thumbnail, 
+            imageUrl, 
             released, 
             duration, 
             album, 
