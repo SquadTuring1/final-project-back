@@ -30,11 +30,11 @@ const getAllUsers = async (req, res, next) => {
 
 const updateCurrentUser = async (req, res, next) => {
   const { firstName, lastName, avatar, email } = req.body;
-  const { id } = req.params;
+  const { uid } = req.params;
 
   try {
     const updatedUser = await UserModel.findOneAndUpdate(
-      { id: id },
+      { uid: uid },
       { $set: { firstName, lastName, avatar, email } },
       { new: true },
     );
@@ -47,7 +47,7 @@ const updateCurrentUser = async (req, res, next) => {
   }
 };
 
-const getCurrnetUser = async (req, res, next) => {
+const getCurrentUser = async (req, res, next) => {
   const { uid } = req.params;
   try {
     const currentUser = await UserModel.findOne({ uid: uid });
@@ -73,7 +73,7 @@ const deleteUser = async (req, res, next) => {
 const UserControllerActions = {
   getAllUsers,
   updateCurrentUser,
-  getCurrnetUser,
+  getCurrentUser,
   deleteUser,
   // signup,
 };
