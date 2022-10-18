@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
+
 
 const SongSchema = new mongoose.Schema(
     {
@@ -6,6 +7,10 @@ const SongSchema = new mongoose.Schema(
             type:String,
             trim: true,
             required: [true, "Title is required"]
+        },
+        artist: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "artist"
         },
         fileUrl: {
             type:String,
@@ -29,8 +34,8 @@ const SongSchema = new mongoose.Schema(
             type: mongoose.Schema.ObjectId,
             ref: "genre" 
         },
-        likedBy: [{
-            type: mongoose.Schema.ObjectId,
+        user: [{
+            type: mongoose.Schema.Types.ObjectId,
             ref: "user" 
         }],
     },
