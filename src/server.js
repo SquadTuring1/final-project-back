@@ -5,17 +5,25 @@ import cors from "cors";
 import AccountRouter from "./routes/account-routes.js";
 import UserRouter from "./routes/UserRouter.js";
 import SongRouter from "./routes/SongRouter.js";
+import bodyParser from "body-parser";
+
+const { json } = bodyParser;
 
 const app = express();
 
 app.use(morgan("dev"));
 app.use(helmet());
+// helmet({
+//   crossOriginResourcePolicy: false,
+// });
 app.use(express.json());
 app.use(cors({ origin: "*" }));
-app.use(express.json({ limit: "50mb", extended: true }));
 app.use(
-  express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }),
+  json({
+    limit: "50mb",
+  }),
 );
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // Routers
 app.use(UserRouter);

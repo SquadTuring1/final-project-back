@@ -15,6 +15,7 @@ export const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "DEV",
+    resource_type: "auto",
   },
 });
 
