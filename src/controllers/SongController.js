@@ -5,6 +5,7 @@ const getAllSongs = async(req, res, next) => {
         const songs = await SongModel.find({})
         .populate("artist")
         .populate({path: "user", select: ["username", "firstName", "lastName", "avatar", "email"]})
+        .populate("album")
         .lean()
         .exec()
         res.status(200).send({songs: songs})
