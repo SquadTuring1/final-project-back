@@ -27,11 +27,11 @@ const SongSchema = new mongoose.Schema(
             type:Number
         },
         album: [{
-            type: mongoose.Schema.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "album" 
         }],
         genre: {
-            type: mongoose.Schema.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "genre" 
         },
         user: [{

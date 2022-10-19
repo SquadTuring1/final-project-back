@@ -15,7 +15,7 @@ const AlbumSchema = new mongoose.Schema(
     totalTracks: {
       type: Number,
     },
-    likedBy: [
+    user: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "user",
