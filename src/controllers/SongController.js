@@ -3,6 +3,11 @@ import SongModel from "../models/Song.js"
 const getAllSongs = async(req, res, next) => {
     try{
         const songs = await SongModel.find({})
+        .populate("artist")
+        .populate({path: "user", select: ["username", "firstName", "lastName", "avatar", "email"]})
+        .populate("album")
+        .lean()
+        .exec()
         res.status(200).send({songs: songs})
     }catch (error){
         next(error)
@@ -10,17 +15,18 @@ const getAllSongs = async(req, res, next) => {
 }
 
 const createSong = async(req, res, next) => {
-   const { title, fileUrl, imageUrl, released, duration, album, genre, likedBy } = req.body
+   const { title, artist, fileUrl, imageUrl, released, duration, album, genre, user } = req.body
    try{
     const newSong = await SongModel.create({
-        title,  
+        title,     
+        artist,     
         fileUrl,
         imageUrl,
         released,
         duration,
         album,
         genre,
-        likedBy
+        user
     })
     res.status(201).send({success: "Song was created", createdSong: newSong})
    } catch (error){
@@ -29,11 +35,12 @@ const createSong = async(req, res, next) => {
 }
 
 const updateSong = async(req, res, next) => {
-    const { title, fileUrl, imageUrl, released, duration, album, genre, likedBy } = req.body
+    const { title, artistName, fileUrl, imageUrl, released, duration, album, genre, likedBy } = req.body
     const { id } = req.params
     try{
         const songToUpdate = await SongModel.findOneAndUpdate({id: id}, {$set: {
-            title, 
+            title,
+            artistName, 
             fileUrl, 
             imageUrl, 
             released, 
