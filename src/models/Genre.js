@@ -6,6 +6,7 @@ const GenreSchema = new mongoose.Schema(
         enum: ["Pop",
             "Rock",
             "Hip Hop",
+            "Kpop",
             "Jazz",
             "Country",
             "R&B",
@@ -15,13 +16,9 @@ const GenreSchema = new mongoose.Schema(
             "Dance",
             "Alternative", 
             "Reggae", 
-            "Indie",
-            "World", 
+            "Indie", 
             "Soul",
             "Punk",
-            "New-Age",
-            "House",
-            "Techno",
             "Latin"]
     }
   },

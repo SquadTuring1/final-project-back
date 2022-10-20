@@ -44,7 +44,7 @@ const createSong = async (req, res, next) => {
     duration,
     album,
     genre,
-    user,
+    likedBy,
   } = req.body;
   try {
     const newSong = await SongModel.create({
@@ -56,7 +56,7 @@ const createSong = async (req, res, next) => {
       duration,
       album,
       genre,
-      user,
+      likedBy,
     });
     res.status(201).send({ success: "Song was created", createdSong: newSong });
   } catch (error) {
