@@ -7,10 +7,7 @@ const getAllSongs = async (req, res, next) => {
   try {
     const songs = await SongModel.find({})
       .populate("artist")
-      .populate({
-        path: "user",
-        select: ["username", "firstName", "lastName", "avatar", "email"],
-      })
+      .populate({path: "likedBy", select: ["username", "firstName", "lastName"]})
       .populate("album")
       .lean()
       .exec();
@@ -30,7 +27,7 @@ const createSong = async (req, res, next) => {
     duration,
     album,
     genre,
-    user,
+    likedBy,
   } = req.body;
   try {
     const newSong = await SongModel.create({
@@ -42,7 +39,7 @@ const createSong = async (req, res, next) => {
       duration,
       album,
       genre,
-      user,
+      likedBy,
     });
     res.status(201).send({ success: "Song was created", createdSong: newSong });
   } catch (error) {
