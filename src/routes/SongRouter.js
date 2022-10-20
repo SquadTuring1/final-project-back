@@ -13,7 +13,11 @@ const {
   updateSong,
   deleteSong,
   createSongWithCloudinary,
+  likeASong,
+  deleteLike,
+  getAllLikes,
 } = SongControllerActions;
+
 SongRouter.get("/songs", getAllSongs);
 SongRouter.post("/songs", createSong);
 SongRouter.put("/songs/:id", updateSong);
@@ -27,6 +31,10 @@ SongRouter.post(
     { name: "title", maxCount: 1 },
   ]),
   createSongWithCloudinary,
+
+  // like routes
+  SongRouter.post("/api/songs/:id/like", likeASong),
+  SongRouter.delete("/api/songs/:id/like", deleteLike),
 );
 
 // SongRouter.get("/songs/:id", getSong)

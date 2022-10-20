@@ -1,6 +1,7 @@
 import SongModel from "../models/Song.js";
 import cloudinary from "../../cloudinary.js";
 import dotenv from "dotenv";
+import { Mongoose, Schema } from "mongoose";
 dotenv.config();
 
 const getAllSongs = async (req, res, next) => {
@@ -8,10 +9,11 @@ const getAllSongs = async (req, res, next) => {
     const songs = await SongModel.find({})
       .populate("artist")
       .populate({
-        path: "user",
+        path: "uploadedBy",
         select: ["username", "firstName", "lastName", "avatar", "email"],
       })
       .populate("album")
+      .populate("likedBY")
       .lean()
       .exec();
     res.status(200).send({ songs: songs });
@@ -54,6 +56,7 @@ export const createSongWithCloudinary = async (req, res, next) => {
   const songPath = req.files.video[0].path;
   const thumbnailPath = req.files.image[0].path;
   const title = req.body.title;
+  const uploadedBy = req.headers.user;
 
   try {
     const uploadedSong = await cloudinary.uploader.upload(songPath, {
@@ -75,26 +78,17 @@ export const createSongWithCloudinary = async (req, res, next) => {
       thumbnail: thumbnailUrl,
       duration: duration,
       cloudinaryId: public_id,
+      uploadedBy,
     });
-
     res.status(200).send({ newSong });
   } catch (error) {
-    console.log("something went wrong");
+    res.status(500).send({ error: "Something went wrong" });
     next();
   }
 };
 
 const updateSong = async (req, res, next) => {
-  const {
-    title,
-    fileUrl,
-    thumbnail,
-    released,
-    duration,
-    album,
-    genre,
-    likedBy,
-  } = req.body;
+  const { title, released, album, genre } = req.body;
   const { id } = req.params;
   try {
     const songToUpdate = await SongModel.findOneAndUpdate(
@@ -102,13 +96,9 @@ const updateSong = async (req, res, next) => {
       {
         $set: {
           title,
-          fileUrl,
-          thumbnail,
           released,
-          duration,
           album,
           genre,
-          likedBy,
         },
       },
     );
@@ -131,12 +121,54 @@ const deleteSong = async (req, res, next) => {
   }
 };
 
+// Likes
+
+const likeASong = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  try {
+    const conditions = { _id: id, likedBY: { $ne: userId } };
+    const update = {
+      $addToSet: { likedBY: userId },
+    };
+    const song = await SongModel.findByIdAndUpdate(conditions, update);
+
+    res.status(200).send(song);
+  } catch (error) {
+    res.status(500).send({
+      error: "Something went wrong",
+      errorMsg: error.message,
+    });
+  }
+};
+
+const deleteLike = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  try {
+    const conditions = { _id: id, likedBY: { $in: userId } };
+    const update = {
+      $pull: { likedBY: userId },
+    };
+    const song = await SongModel.findByIdAndUpdate(conditions, update);
+
+    res.status(200).send(song);
+  } catch (error) {
+    res.status(500).send({
+      error: "Something went wrong",
+      errorMsg: error.message,
+    });
+  }
+};
+
 const SongControllerActions = {
   getAllSongs,
   createSong,
   updateSong,
   deleteSong,
   createSongWithCloudinary,
+  likeASong,
+  deleteLike,
 };
 
 export default SongControllerActions;

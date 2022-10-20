@@ -41,7 +41,11 @@ const SongSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "genre",
     },
-    user: [
+    uploadedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+    likedBY: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
