@@ -9,19 +9,20 @@ const SongRouter = Router();
 
 const {
   getAllSongs,
+  getSongById,
   createSong,
   updateSong,
   deleteSong,
   createSongWithCloudinary,
   likeASong,
   deleteLike,
-  getAllLikes,
 } = SongControllerActions;
 
-SongRouter.get("/songs", getAllSongs);
-SongRouter.post("/songs", createSong);
-SongRouter.put("/songs/:id", updateSong);
-SongRouter.delete("/songs/:id", deleteSong);
+SongRouter.get("/api/songs", getAllSongs);
+SongRouter.get("/api/songs/:id", getSongById);
+SongRouter.post("/api/songs", createSong);
+SongRouter.put("/api/songs/:id", updateSong);
+SongRouter.delete("/api/songs/:id", deleteSong);
 
 SongRouter.post(
   "/api/addsong",
@@ -36,9 +37,5 @@ SongRouter.post(
   SongRouter.post("/api/songs/:id/like", likeASong),
   SongRouter.delete("/api/songs/:id/like", deleteLike),
 );
-
-// SongRouter.get("/songs/:id", getSong)
-// SongRouter.get("/songs/:id", getSong)
-// SongRouter.get("/songs/:id", getSong)
 
 export default SongRouter;

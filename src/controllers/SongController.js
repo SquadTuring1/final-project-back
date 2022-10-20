@@ -1,7 +1,6 @@
 import SongModel from "../models/Song.js";
 import cloudinary from "../../cloudinary.js";
 import dotenv from "dotenv";
-import { Mongoose, Schema } from "mongoose";
 dotenv.config();
 
 const getAllSongs = async (req, res, next) => {
@@ -19,6 +18,19 @@ const getAllSongs = async (req, res, next) => {
     res.status(200).send({ songs: songs });
   } catch (error) {
     next(error);
+  }
+};
+
+const getSongById = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const song = await SongModel.findByIdAndUpdate({ _id: id });
+    res.status(200).send(song);
+  } catch (error) {
+    res.status(500).send({
+      error: "Something went wrong",
+      errorMsg: error.message,
+    });
   }
 };
 
@@ -52,7 +64,7 @@ const createSong = async (req, res, next) => {
   }
 };
 
-export const createSongWithCloudinary = async (req, res, next) => {
+const createSongWithCloudinary = async (req, res, next) => {
   const songPath = req.files.video[0].path;
   const thumbnailPath = req.files.image[0].path;
   const title = req.body.title;
@@ -82,7 +94,9 @@ export const createSongWithCloudinary = async (req, res, next) => {
     });
     res.status(200).send({ newSong });
   } catch (error) {
-    res.status(500).send({ error: "Something went wrong" });
+    res
+      .status(500)
+      .send({ error: "Something went wrong", errorMsg: error.message });
     next();
   }
 };
@@ -163,6 +177,7 @@ const deleteLike = async (req, res, next) => {
 
 const SongControllerActions = {
   getAllSongs,
+  getSongById,
   createSong,
   updateSong,
   deleteSong,
