@@ -16,6 +16,7 @@ const {
   createSongWithCloudinary,
   likeASong,
   deleteLike,
+  playSong,
 } = SongControllerActions;
 
 SongRouter.get("/api/songs", getAllSongs);
@@ -36,6 +37,9 @@ SongRouter.post(
   // like routes
   SongRouter.post("/api/songs/:id/like", likeASong),
   SongRouter.delete("/api/songs/:id/like", deleteLike),
+
+  // play song
+  SongRouter.get("/api/songs/:id/play", playSong),
 );
 
 export default SongRouter;

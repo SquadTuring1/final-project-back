@@ -175,6 +175,40 @@ const deleteLike = async (req, res, next) => {
   }
 };
 
+const playSong = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const songToPlay = await SongModel.findById({ _id: id })
+      .populate({
+        path: "artist",
+        select: ["artistName"],
+      })
+      .populate({
+        path: "album",
+        select: ["title"],
+      })
+      .lean()
+      .exec();
+
+    const { title, artist, fileUrl, imgUrl, album } = songToPlay;
+
+    res.status(200).send({
+      song: {
+        title,
+        artist,
+        fileUrl,
+        imgUrl,
+        album,
+      },
+    });
+  } catch (error) {
+    res.status(500).send({
+      error: "Something went wrong",
+      errorMsg: error.message,
+    });
+  }
+};
+
 const SongControllerActions = {
   getAllSongs,
   getSongById,
@@ -184,6 +218,7 @@ const SongControllerActions = {
   createSongWithCloudinary,
   likeASong,
   deleteLike,
+  playSong,
 };
 
 export default SongControllerActions;
