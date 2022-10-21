@@ -2,11 +2,12 @@ import app from "./server.js";
 import connectDB from "./db/connect.js";
 import CONFIG from "./config/config.js";
 import swaggerDocs from "./middleware/swagger/swagger.js";
-import UserModel from "./models/User.js";
+
+import addGenres from "../src/db/seed.js";
 
 connectDB().then(async function onServerInit() {
   CONFIG.development.logger.info("DB CONNECTED");
-
+  // addGenres();
   app.listen(CONFIG.development.app.PORT, () => {
     CONFIG.development.logger.info(
       `Server running at http://localhost:${CONFIG.development.app.PORT}`,
@@ -14,4 +15,3 @@ connectDB().then(async function onServerInit() {
   });
   swaggerDocs(app, 4000);
 });
-

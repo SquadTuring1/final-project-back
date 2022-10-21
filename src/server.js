@@ -3,6 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import AccountRouter from "./routes/account-routes.js";
+import GenreRouter from "./routes/GenreRouter.js";
 import UserRouter from "./routes/UserRouter.js";
 import SongRouter from "./routes/SongRouter.js";
 import ArtistRouter from "./routes/ArtistRouter.js";
@@ -15,9 +16,6 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(helmet());
-// helmet({
-//   crossOriginResourcePolicy: false,
-// });
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use(
@@ -33,5 +31,6 @@ app.use(AccountRouter);
 app.use(SongRouter);
 app.use(ArtistRouter);
 app.use(AlbumRouter);
+app.use(GenreRouter);
 
 export default app;

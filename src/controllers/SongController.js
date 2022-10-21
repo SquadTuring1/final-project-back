@@ -1,6 +1,7 @@
 import SongModel from "../models/Song.js";
 import cloudinary from "../../cloudinary.js";
 import dotenv from "dotenv";
+import GenreModel from "../models/Genre.js";
 dotenv.config();
 
 const getAllSongs = async (req, res, next) => {
@@ -112,10 +113,15 @@ const updateSong = async (req, res, next) => {
           title,
           released,
           album,
-          genre,
         },
       },
     );
+    //  update genre
+    const conditions = { title: genre, songs: { $ne: id } };
+    const update = {
+      $addToSet: { songs: id },
+    };
+    const updateGenre = await GenreModel.findOneAndUpdate(conditions, update);
     res.status(201).send({
       success: "Song was updated",
     });
