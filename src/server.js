@@ -6,8 +6,9 @@ import AccountRouter from "./routes/account-routes.js";
 import GenreRouter from "./routes/GenreRouter.js";
 import UserRouter from "./routes/UserRouter.js";
 import SongRouter from "./routes/SongRouter.js";
-import ArtistRouter from "./routes/ArtistRouter.js";
-import AlbumRouter from "./routes/AlbumRouter.js";
+import PlaylistRouter from "./routes/PlaylistRouter.js";
+// import ArtistRouter from "./routes/ArtistRouter.js";
+// import AlbumRouter from "./routes/AlbumRouter.js";
 import bodyParser from "body-parser";
 
 const { json } = bodyParser;
@@ -29,8 +30,9 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(UserRouter);
 app.use(AccountRouter);
 app.use(SongRouter);
-app.use(ArtistRouter);
-app.use(AlbumRouter);
+// app.use(ArtistRouter);
+// app.use(AlbumRouter);
 app.use(GenreRouter);
+app.use(PlaylistRouter);
 
 export default app;

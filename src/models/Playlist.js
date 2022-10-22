@@ -3,40 +3,42 @@ import mongoose from "mongoose";
 const PlaylistSchema = new mongoose.Schema(
   {
     title: {
-        type:String,
-        required: [true, "Title is required"]
+      type: String,
+      required: [true, "Title is required"],
     },
     description: {
-        type: String 
+      type: String,
     },
     thumbnail: {
-        type:String
+      type: String,
     },
     isPrivate: {
-        type: Boolean,
-        required: [true, "Private is required"]
+      type: Boolean,
+      required: [true, "Private is required"],
     },
-    songs: [{
-        type: mongoose.Schmema.ObjectId,
-        ref: "song"
-    }],
+    songs: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "song",
+      },
+    ],
     numberSongs: {
-        type: Number
+      type: Number,
     },
     followers: [
-        {
-          type: mongoose.Schema.ObjectId,
-          ref: "user",
-        },
-      ],
-    userId: {
+      {
         type: mongoose.Schema.ObjectId,
-        ref: "user"
-    }
+        ref: "user",
+      },
+    ],
+    userId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "user",
+    },
   },
   { timestamps: true },
-  )
+);
 
-  const PlaylistModel = new mongoose.model("playlist", PlaylistSchema);
+const PlaylistModel = new mongoose.model("playlist", PlaylistSchema);
 
-  export default PlaylistModel;  
+export default PlaylistModel;

@@ -7,12 +7,12 @@ dotenv.config();
 const getAllSongs = async (req, res, next) => {
   try {
     const songs = await SongModel.find({})
-      .populate("artist")
+      // .populate("artist")
       .populate({
         path: "uploadedBy",
         select: ["username", "firstName", "lastName", "avatar", "email"],
       })
-      .populate("album")
+      // .populate("album")
       .populate("likedBY")
       .lean()
       .exec();
