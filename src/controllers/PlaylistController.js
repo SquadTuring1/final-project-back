@@ -18,7 +18,7 @@ const getAllPlaylists = async (req, res, next) => {
 const getPlaylistById = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const playlists = await PlaylistModel.findById(id)
+    const playlist = await PlaylistModel.findById(id)
       .populate({
         path: "songs",
         select: ["title"],
@@ -26,7 +26,7 @@ const getPlaylistById = async (req, res, next) => {
       .lean()
       .exec();
 
-    res.status(200).send({ playlists });
+    res.status(200).send({ playlist });
   } catch (error) {
     res.status(500).send({
       error: "Something went wrong",
@@ -140,6 +140,28 @@ const removeSongFromPlaylist = async (req, res, next) => {
   }
 };
 
+const deletePlaylist = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const playlistToDelete = await PlaylistModel.findByIdAndDelete({ _id: id });
+    const updateUserOwnPlaylist = await UserModel.findByIdAndUpdate(
+      {
+        _id: playlistToDelete.userId.toString(),
+      },
+      { $pull: { ownPlaylists: id } },
+    );
+    res.status(204).send({
+      success: "Playlist was deleted",
+    });
+  } catch (error) {
+    res.status(500).send({
+      error: "Something went wrong",
+      errorMsg: error.message,
+    });
+  }
+};
+
 export {
   createPlaylist,
   updatePlaylistInfoById,
@@ -147,4 +169,5 @@ export {
   removeSongFromPlaylist,
   getAllPlaylists,
   getPlaylistById,
+  deletePlaylist,
 };

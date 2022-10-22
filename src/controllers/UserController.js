@@ -19,7 +19,9 @@ import UserModel from "../models/User.js";
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const users = await UserModel.find({});
+    const users = await UserModel.find({}).populate({
+      path: "ownPlaylists",
+    });
     res.status(200).send({
       users: users,
     });

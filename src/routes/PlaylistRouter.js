@@ -6,6 +6,7 @@ import {
   addSongToPlaylist,
   getAllPlaylists,
   getPlaylistById,
+  deletePlaylist,
 } from "../controllers/PlaylistController.js";
 
 const Router = express.Router;
@@ -21,6 +22,6 @@ PlaylistRouter.patch(
   updatePlaylistInfoById,
 );
 PlaylistRouter.patch("/playlists/:id/addsong", addSongToPlaylist);
-PlaylistRouter.delete("/playlists/:id");
+PlaylistRouter.delete("/playlists/:id", deletePlaylist);
 
 export default PlaylistRouter;
