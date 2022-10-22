@@ -88,7 +88,6 @@ const updatePlaylistInfoById = async (req, res, next) => {
       error: "Something went wrong",
       errorMsg: error.message,
     });
-    next();
   }
 };
 
@@ -112,7 +111,30 @@ const addSongToPlaylist = async (req, res, next) => {
       error: "Something went wrong",
       errorMsg: error.message,
     });
-    next();
+  }
+};
+
+const followPlaylist = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+
+  try {
+    // updating playlist
+    const conditions = { _id: id, followers: { $ne: userId } };
+    const update = { $addToSet: { followers: userId } };
+    const playlist = await PlaylistModel.findByIdAndUpdate(conditions, update);
+
+    // updating user
+    const updateUserLikedPlaylists = await UserModel.findByIdAndUpdate(
+      { _id: userId, likedPlaylists: { $ne: id } },
+      { $addToSet: { likedPlaylists: id } },
+    );
+    res.status(200).send(playlist);
+  } catch (error) {
+    res.status(500).send({
+      error: "Something went wrong",
+      errorMsg: error.message,
+    });
   }
 };
 
@@ -136,7 +158,6 @@ const removeSongFromPlaylist = async (req, res, next) => {
       error: "Something went wrong",
       errorMsg: error.message,
     });
-    next();
   }
 };
 
@@ -170,4 +191,5 @@ export {
   getAllPlaylists,
   getPlaylistById,
   deletePlaylist,
+  followPlaylist,
 };
