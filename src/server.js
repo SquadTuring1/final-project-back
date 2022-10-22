@@ -9,6 +9,7 @@ import SongRouter from "./routes/SongRouter.js";
 import PlaylistRouter from "./routes/PlaylistRouter.js";
 // import ArtistRouter from "./routes/ArtistRouter.js";
 // import AlbumRouter from "./routes/AlbumRouter.js";
+import PersonalRouter from "./routes/PersonalRouter.js";
 import bodyParser from "body-parser";
 
 const { json } = bodyParser;
@@ -34,5 +35,6 @@ app.use(SongRouter);
 // app.use(AlbumRouter);
 app.use(GenreRouter);
 app.use(PlaylistRouter);
+app.use(PersonalRouter);
 
 export default app;
