@@ -2,6 +2,7 @@ import SongModel from "../models/Song.js";
 import cloudinary from "../../cloudinary.js";
 import dotenv from "dotenv";
 import GenreModel from "../models/Genre.js";
+import UserModel from "../models/User.js";
 dotenv.config();
 
 const getAllSongs = async (req, res, next) => {
@@ -152,8 +153,10 @@ const likeASong = async (req, res, next) => {
       $addToSet: { likedBY: userId },
     };
     const song = await SongModel.findByIdAndUpdate(conditions, update);
-
-    res.status(200).send(song);
+    const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $ne: id } }, {
+      $addToSet: { likedSongs: id }
+    }).populate({ path: 'likedSongs', select: ['title']});    
+    res.status(200).send({song, user});
   } catch (error) {
     res.status(500).send({
       error: "Something went wrong",
@@ -171,7 +174,9 @@ const deleteLike = async (req, res, next) => {
       $pull: { likedBY: userId },
     };
     const song = await SongModel.findByIdAndUpdate(conditions, update);
-
+    const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $in: id } }, {
+      $pull: { likedSongs: id }
+    }).populate({ path: 'likedSongs', select: ['title']});    
     res.status(200).send(song);
   } catch (error) {
     res.status(500).send({
