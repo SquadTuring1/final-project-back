@@ -36,13 +36,14 @@ const getPlaylistById = async (req, res, next) => {
 };
 
 const createPlaylist = async (req, res, next) => {
-  const { title, description, isPrivate, userId } = req.body;
+  const { title, description, isPrivate, userId, songs } = req.body;
   try {
     const playlist = await PlaylistModel.create({
       title,
       description,
       isPrivate,
       userId,
+      songs
     });
 
     const updateUserOwnPlaylist = await UserModel.findByIdAndUpdate(
