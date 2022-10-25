@@ -9,7 +9,7 @@ const AlbumSchema = new mongoose.Schema(
     year: {
       type: Date,
     },
-    thumbnail: {
+    imageUrl: {
       type: String,
     },
     totalTracks: {
