@@ -8,8 +8,7 @@ const SongSchema = new mongoose.Schema(
       required: [true, "Title is required"],
     },
     artist: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "artist",
+      type: String,
     },
     fileUrl: {
       type: String,

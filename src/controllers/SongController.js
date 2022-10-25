@@ -8,13 +8,22 @@ dotenv.config();
 const getAllSongs = async (req, res, next) => {
   try {
     const songs = await SongModel.find({})
-      // .populate("artist")
+      .populate({
+        path: "album",
+        select: ["title"],
+      })
       .populate({
         path: "uploadedBy",
         select: ["username", "firstName", "lastName", "avatar", "email"],
       })
-      // .populate("album")
-      .populate("likedBY")
+      .populate({
+        path: "genre",
+        select: ["title"],
+      })
+      .populate({
+        path: "likedBY",
+        select: ["username"],
+      })
       .lean()
       .exec();
     res.status(200).send({ songs: songs });
@@ -153,10 +162,13 @@ const likeASong = async (req, res, next) => {
       $addToSet: { likedBY: userId },
     };
     const song = await SongModel.findByIdAndUpdate(conditions, update);
-    const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $ne: id } }, {
-      $addToSet: { likedSongs: id }
-    })   
-    res.status(200).send({song, user});
+    const user = await UserModel.findByIdAndUpdate(
+      { _id: userId, likedSongs: { $ne: id } },
+      {
+        $addToSet: { likedSongs: id },
+      },
+    );
+    res.status(200).send({ song, user });
   } catch (error) {
     res.status(500).send({
       error: "Something went wrong",
@@ -174,9 +186,12 @@ const deleteLike = async (req, res, next) => {
       $pull: { likedBY: userId },
     };
     const song = await SongModel.findByIdAndUpdate(conditions, update);
-    const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $in: id } }, {
-      $pull: { likedSongs: id }
-    })
+    const user = await UserModel.findByIdAndUpdate(
+      { _id: userId, likedSongs: { $in: id } },
+      {
+        $pull: { likedSongs: id },
+      },
+    );
     res.status(200).send(song, user);
   } catch (error) {
     res.status(500).send({
