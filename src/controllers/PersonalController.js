@@ -1,6 +1,3 @@
-// TODO:liked song -> update song controller (like function)
-// TODO: ge all my liked songs
-
 import UserModel from "../models/User.js";
 
 const followSomeone = async (req, res) => {
