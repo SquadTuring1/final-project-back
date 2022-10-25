@@ -168,16 +168,19 @@ const likeASong = async (req, res, next) => {
 const deleteLike = async (req, res, next) => {
   const { id } = req.params;
   const { userId } = req.body;
+  console.log(id, userId)
   try {
     const conditions = { _id: id, likedBY: { $in: userId } };
     const update = {
       $pull: { likedBY: userId },
     };
     const song = await SongModel.findByIdAndUpdate(conditions, update);
+    
     const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $in: id } }, {
       $pull: { likedSongs: id }
     })
-    res.status(200).send(song, user);
+    
+    res.status(200).send({ song: song, user: user });
   } catch (error) {
     res.status(500).send({
       error: "Something went wrong",
