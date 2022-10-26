@@ -180,21 +180,13 @@ const likeASong = async (req, res, next) => {
 const deleteLike = async (req, res, next) => {
   const { id } = req.params;
   const { userId } = req.body;
-  console.log(id, userId)
+  console.log(id, userId);
   try {
     const conditions = { _id: id, likedBY: { $in: userId } };
     const update = {
       $pull: { likedBY: userId },
     };
     const song = await SongModel.findByIdAndUpdate(conditions, update);
-<<<<<<< HEAD
-    
-    const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $in: id } }, {
-      $pull: { likedSongs: id }
-    })
-    
-    res.status(200).send({ song: song, user: user });
-=======
     const user = await UserModel.findByIdAndUpdate(
       { _id: userId, likedSongs: { $in: id } },
       {
@@ -202,7 +194,6 @@ const deleteLike = async (req, res, next) => {
       },
     );
     res.status(200).send(song, user);
->>>>>>> b96af644c1adaa432568f06004978dbcdc7d5c21
   } catch (error) {
     res.status(500).send({
       error: "Something went wrong",
