@@ -29,11 +29,6 @@ const UserSchema = new mongoose.Schema(
         message: ({ value }) => `the emailadd ${value} is not valid`,
       },
     },
-    password: {
-      type: String,
-      required: [true, "Password is required"],
-      minlength: [8, "The password is too short"],
-    },
     token: {
       type: String,
       // required: true

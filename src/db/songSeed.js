@@ -535,7 +535,7 @@ const seedSongs = async () => {
       const usersId = allUsers.map((user) => user._id.toString());
       const randomUser = usersId[Math.floor(Math.random() * usersId.length)];
       const randomUser2 =
-        usersId[Math.floor(Math.random() * usersId.length) + 1];
+        usersId[Math.floor(Math.random() * usersId.length) - 1];
 
       const findGenre = allGenres.filter((genre) =>
         genre.title.toLowerCase() === song.genre.toLowerCase()
@@ -543,7 +543,6 @@ const seedSongs = async () => {
           : null,
       );
 
-      const index = Math.floor(Math.random() * 10);
       const findAlbum = allAlbums.filter((album) =>
         song.album.toLowerCase() === album.title.toLowerCase()
           ? album.id
