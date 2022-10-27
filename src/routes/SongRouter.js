@@ -20,7 +20,7 @@ const {
   playSong,
 } = SongControllerActions;
 
-SongRouter.get("/songs", authMiddleware, getAllSongs);
+SongRouter.get("/songs", getAllSongs);
 SongRouter.get("/songs/:id", getSongById);
 SongRouter.post("/songs", createSong);
 SongRouter.put("/songs/:id", updateSong);
