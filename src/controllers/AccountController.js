@@ -5,9 +5,10 @@ import User from "../models/User.js";
 
 
 export const login = async(req,res,next) => {
-    const {email, password} = req.body;    
+    const {uid, token} = req.body;    
+    console.log(uid, token)
     try{
-        const userLogged = await UserModel.findOne({email: email})        
+        const userLogged = await UserModel.findOne({uid: uid})        
         if (userLogged){
             res.status(200).send({data: "User logged!"})
         }       

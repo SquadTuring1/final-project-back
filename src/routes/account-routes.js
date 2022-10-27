@@ -5,7 +5,7 @@ const Router = express.Router;
 
 const AccountRouter = Router();
 
-AccountRouter.post("/login", login);
+AccountRouter.patch("/login", login);
 AccountRouter.post("/signup", signup);
 // AccountRouter.post("/change-password", changePassword);
 

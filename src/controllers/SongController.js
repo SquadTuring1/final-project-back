@@ -186,6 +186,7 @@ const deleteLike = async (req, res, next) => {
     const update = {
       $pull: { likedBY: userId },
     };
+<<<<<<< Updated upstream
     const song = await SongModel.findByIdAndUpdate(conditions, update);
     const user = await UserModel.findByIdAndUpdate(
       { _id: userId, likedSongs: { $in: id } },
@@ -194,6 +195,14 @@ const deleteLike = async (req, res, next) => {
       },
     );
     res.status(200).send(song, user);
+=======
+    const song = await SongModel.findByIdAndUpdate(conditions, update);    
+    const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $in: id } }, {
+      $pull: { likedSongs: id }
+    })
+    
+    res.status(200).send({ song: song, user: user });
+>>>>>>> Stashed changes
   } catch (error) {
     res.status(500).send({
       error: "Something went wrong",
