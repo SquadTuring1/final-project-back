@@ -3,30 +3,42 @@ import cloudinary from "../../cloudinary.js";
 import dotenv from "dotenv";
 import GenreModel from "../models/Genre.js";
 import UserModel from "../models/User.js";
-dotenv.config();
+import paginate from "express-paginate";
 
 const getAllSongs = async (req, res, next) => {
+  const { limit, page } = req.query;
   try {
-    const songs = await SongModel.find({})
-      .populate({
-        path: "album",
-        select: ["title"],
-      })
-      .populate({
-        path: "uploadedBy",
-        select: ["username", "firstName", "lastName", "avatar", "email"],
-      })
-      .populate({
-        path: "genre",
-        select: ["title"],
-      })
-      .populate({
-        path: "likedBY",
-        select: ["username"],
-      })
-      .lean()
-      .exec();
-    res.status(200).send({ songs: songs });
+    const [result, itemCount] = await Promise.all([
+      SongModel.find({})
+        .limit(limit)
+        .skip(req.skip)
+        .populate({
+          path: "album",
+          select: ["title"],
+        })
+        .populate({
+          path: "uploadedBy",
+          select: ["username", "firstName", "lastName", "avatar", "email"],
+        })
+        .populate({
+          path: "genre",
+          select: ["title"],
+        })
+        .populate({
+          path: "likedBY",
+          select: ["username"],
+        })
+        .lean()
+        .exec(),
+      SongModel.count({}),
+    ]);
+    const pageCount = Math.ceil(itemCount / limit);
+    res.send({
+      has_more: paginate.hasNextPages(req)(pageCount),
+      page,
+      pageCount,
+      songs: result,
+    });
   } catch (error) {
     next(error);
   }
@@ -35,7 +47,7 @@ const getAllSongs = async (req, res, next) => {
 const getSongById = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const song = await SongModel.findByIdAndUpdate({ _id: id });
+    const song = await SongModel.findByIdAndUpdate({ _id: 1 });
     res.status(200).send(song);
   } catch (error) {
     next(error);

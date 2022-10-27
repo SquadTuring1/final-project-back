@@ -13,7 +13,7 @@ import PersonalRouter from "./routes/PersonalRouter.js";
 import SearchRouter from "./routes/SearchRouter.js";
 import bodyParser from "body-parser";
 import ErrorHandler from "./middleware/errorHandler.js";
-
+import paginate from "express-paginate";
 const { json } = bodyParser;
 
 const app = express();
@@ -29,19 +29,19 @@ app.use(
 );
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
+// Pagination Middleware
+app.use(paginate.middleware(10, 50));
+
 // Routers
 app.use(UserRouter);
 app.use(AccountRouter);
 app.use(SongRouter);
-// app.use(ArtistRouter);
 // app.use(AlbumRouter);
 app.use(GenreRouter);
 app.use(PlaylistRouter);
 app.use(PersonalRouter);
 app.use(SearchRouter);
 
-// Middlewares
-
+// Error Middleware
 app.use(ErrorHandler);
-
 export default app;
