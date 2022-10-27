@@ -1,17 +1,12 @@
 import express from "express";
-import { login, signup } from "../controllers/AccountController.js";
+import { upload } from "../../cloudinary.js";
+import { signup, updateAccout } from "../controllers/AccountController.js";
 
 const Router = express.Router;
 
 const AccountRouter = Router();
 
-AccountRouter.patch("/login", login);
+AccountRouter.patch("/update", upload.single("image"), updateAccout);
 AccountRouter.post("/signup", signup);
-// AccountRouter.post("/change-password", changePassword);
-
-// console.log(AccountRouter)
-
-// AccountRouter.get("/account", getAccount)
-// AccountRouter.post("/account", saveAccount)
 
 export default AccountRouter;

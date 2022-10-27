@@ -1,22 +1,5 @@
 import UserModel from "../models/User.js";
 
-// const signup = async (req, res, next) => {
-//   const { uid, email } = req.user; // coming from firebase auth middlewere
-
-//   try {
-//     const user = await UserModel.findOne({ email: email });
-
-//     if (user) {
-//       return res.sendStaus(200);
-//     }
-
-//     const newUser = await UserModel.create({ uid: uid, email: email });
-//     res.sendStaus(201);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await UserModel.find({})
@@ -55,8 +38,9 @@ const updateCurrentUser = async (req, res, next) => {
 const getCurrentUser = async (req, res, next) => {
   const { uid } = req.params;
   try {
-    const currentUser = await UserModel.findOne({ uid: uid })
-      .populate({ path: "ownPlaylists" });
+    const currentUser = await UserModel.findOne({ uid: uid }).populate({
+      path: "ownPlaylists",
+    });
     res.status(200).send({
       currentUser: currentUser,
     });

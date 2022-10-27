@@ -1,56 +1,42 @@
+import cloudinary from "../../cloudinary.js";
 import UserModel from "../models/User.js";
 
-<<<<<<< HEAD
+const updateAccout = async (req, res) => {
+  const { uid, firstName, lastName, username } = req.body;
+  const { path } = req.file;
 
-
-export const login = async(req,res,next) => {
-    const {uid, token} = req.body;    
-    console.log(uid, token)
-    try{
-        const userLogged = await UserModel.findOne({uid: uid})        
-        if (userLogged){
-            res.status(200).send({data: "User logged!"})
-        }       
-    } catch (error){
-        console.log(error.message)
-        next(error)
-=======
-export const login = async (req, res, next) => {
-  console.log("hi");
-  const { uid, token } = req.body;
   try {
-    const userLogged = await UserModel.findOneAndUpdate(
-      { uid },
-      { token },
-      { new: true },
-    );
-    if (userLogged) {
-      res.status(201).send({ token: userLogged.token });
+    const account = await UserModel.find({ uid: uid });
+
+    const avatarCloudinary = await cloudinary.uploader.upload(path, {
+      folder: "accout-avatars",
+      resource_type: "image",
+    });
+
+    if (account[0] && avatarCloudinary) {
+      await UserModel.findByIdAndUpdate(
+        { _id: account[0]._id.toString() },
+        { firstName, lastName, username, avatar: avatarCloudinary.url },
+      );
     } else {
-      res.status(403).send({
-        error: "Please check your email or password and try again",
-      });
->>>>>>> checking-auth-middleware-with-token
+      res.status(404).send("User does not exsist or avatar cannot upadate");
     }
+    res.status(200).send(account);
   } catch (error) {
-    console.log(error.message);
     res.status(500).send({
-      error: "Something went wrong",
+      error: "something went wrong",
       errorMsg: error.message,
     });
   }
 };
 
-export const signup = async (req, res, next) => {
-  console.log("signup");
-  const { token, uid, email, password, username } = req.body;
+const signup = async (req, res, next) => {
+  const { token, uid, email } = req.body;
   try {
     const newUser = await UserModel.create({
       token,
       uid,
       email,
-      password,
-      username,
     });
     res.status(201).send({ data: "Success! " });
   } catch (error) {
@@ -58,3 +44,5 @@ export const signup = async (req, res, next) => {
     next(error);
   }
 };
+
+export { signup, updateAccout };

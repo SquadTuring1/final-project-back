@@ -27,7 +27,7 @@ SongRouter.put("/songs/:id", updateSong);
 SongRouter.delete("/songs/:id", deleteSong);
 
 SongRouter.post(
-  "/api/addsong",
+  "/addsong",
   upload.fields([
     { name: "video", maxCount: 1 },
     { name: "image", maxCount: 1 },
