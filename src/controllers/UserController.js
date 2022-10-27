@@ -1,5 +1,7 @@
 import UserModel from "../models/User.js";
 
+// For future perpouses
+
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await UserModel.find({})
@@ -57,7 +59,9 @@ const deleteUser = async (req, res, next) => {
       message: "User deleted",
       userToDelete,
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 const UserControllerActions = {
@@ -65,7 +69,6 @@ const UserControllerActions = {
   updateCurrentUser,
   getCurrentUser,
   deleteUser,
-  // signup,
 };
 
 export default UserControllerActions;

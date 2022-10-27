@@ -1,7 +1,7 @@
 import PlaylistModel from "../models/Playlist.js";
 import SongModel from "../models/Song.js";
 
-const search = async (req, res) => {
+const search = async (req, res, next) => {
   const { query } = req.body;
 
   try {
@@ -16,10 +16,7 @@ const search = async (req, res) => {
 
     res.status(200).send({ songs, playlists });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 

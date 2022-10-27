@@ -12,6 +12,7 @@ import PlaylistRouter from "./routes/PlaylistRouter.js";
 import PersonalRouter from "./routes/PersonalRouter.js";
 import SearchRouter from "./routes/SearchRouter.js";
 import bodyParser from "body-parser";
+import ErrorHandler from "./middleware/errorHandler.js";
 
 const { json } = bodyParser;
 
@@ -38,5 +39,9 @@ app.use(GenreRouter);
 app.use(PlaylistRouter);
 app.use(PersonalRouter);
 app.use(SearchRouter);
+
+// Middlewares
+
+app.use(ErrorHandler);
 
 export default app;

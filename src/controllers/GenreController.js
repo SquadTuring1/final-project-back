@@ -7,10 +7,7 @@ const getAllGenres = async (req, res, next) => {
     });
     res.status(200).send(genres);
   } catch (error) {
-    res.status(500).send({
-      error: "something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -25,10 +22,7 @@ const getGenreById = async (req, res, next) => {
 
     res.status(200).send(genre);
   } catch (error) {
-    res.status(500).send({
-      error: "something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 

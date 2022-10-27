@@ -1,6 +1,6 @@
 import UserModel from "../models/User.js";
 
-const followSomeone = async (req, res) => {
+const followSomeone = async (req, res, next) => {
   const { id: userToFollowId } = req.params;
   const { me } = req.body;
   try {
@@ -17,14 +17,11 @@ const followSomeone = async (req, res) => {
     );
     res.status(200).send({ success: `Success` });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
-const getMyFollowers = async (req, res) => {
+const getMyFollowers = async (req, res, next) => {
   const { id: me } = req.params;
   try {
     const myFollowers = await UserModel.findById({ _id: me }).populate({
@@ -34,14 +31,11 @@ const getMyFollowers = async (req, res) => {
     const { followedBy } = myFollowers;
     res.status(200).send({ myFollowers: followedBy });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
-const getMyFollowing = async (req, res) => {
+const getMyFollowing = async (req, res, next) => {
   const { id: me } = req.params;
   try {
     const myFollowing = await UserModel.findById({ _id: me }).populate({
@@ -51,14 +45,11 @@ const getMyFollowing = async (req, res) => {
     const { following } = myFollowing;
     res.status(200).send({ myFollowing: following });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
-const getMyLikedSongs = async (req, res) => {
+const getMyLikedSongs = async (req, res, next) => {
   const { id: me } = req.params;
   try {
     const myLikedSongs = await UserModel.findById({ _id: me }).populate({
@@ -68,10 +59,7 @@ const getMyLikedSongs = async (req, res) => {
     const { likedSongs } = myLikedSongs;
     res.status(200).send({ myLikedSongs: likedSongs });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 export { followSomeone, getMyFollowers, getMyFollowing, getMyLikedSongs };

@@ -8,10 +8,7 @@ const getAllPlaylists = async (req, res, next) => {
 
     res.status(200).send({ playlists });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -21,24 +18,20 @@ const getPlaylistById = async (req, res, next) => {
     const playlist = await PlaylistModel.findById(id)
       .populate({
         path: "songs",
-       
       })
       .populate({
-        path : 'songs',
-        populate : {
-          path : 'genre',
-          select: 'title'
-        }
+        path: "songs",
+        populate: {
+          path: "genre",
+          select: "title",
+        },
       })
       .lean()
       .exec();
 
     res.status(200).send({ playlist });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -50,7 +43,7 @@ const createPlaylist = async (req, res, next) => {
       description,
       isPrivate,
       userId,
-      songs
+      songs,
     });
 
     const updateUserOwnPlaylist = await UserModel.findByIdAndUpdate(
@@ -61,10 +54,7 @@ const createPlaylist = async (req, res, next) => {
     );
     res.status(201).send({ playlist });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -92,10 +82,7 @@ const updatePlaylistInfoById = async (req, res, next) => {
     console.log(playlistToUpdate);
     res.status(201).send(playlistToUpdate);
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -115,10 +102,7 @@ const addSongToPlaylist = async (req, res, next) => {
     });
     res.status(201).send(playlist);
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -139,10 +123,7 @@ const followPlaylist = async (req, res, next) => {
     );
     res.status(200).send(playlist);
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -162,10 +143,7 @@ const removeSongFromPlaylist = async (req, res, next) => {
     });
     res.status(201).send(playlist);
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 
@@ -184,10 +162,7 @@ const deletePlaylist = async (req, res, next) => {
       success: "Playlist was deleted",
     });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 

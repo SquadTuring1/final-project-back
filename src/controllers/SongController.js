@@ -38,39 +38,6 @@ const getSongById = async (req, res, next) => {
     const song = await SongModel.findByIdAndUpdate({ _id: id });
     res.status(200).send(song);
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
-  }
-};
-
-const createSong = async (req, res, next) => {
-  const {
-    title,
-    artist,
-    fileUrl,
-    imageUrl,
-    released,
-    duration,
-    album,
-    genre,
-    likedBy,
-  } = req.body;
-  try {
-    const newSong = await SongModel.create({
-      title,
-      artist,
-      fileUrl,
-      imageUrl,
-      released,
-      duration,
-      album,
-      genre,
-      likedBy,
-    });
-    res.status(201).send({ success: "Song was created", createdSong: newSong });
-  } catch (error) {
     next(error);
   }
 };
@@ -105,10 +72,7 @@ const createSongWithCloudinary = async (req, res, next) => {
     });
     res.status(200).send({ newSong });
   } catch (error) {
-    res
-      .status(500)
-      .send({ error: "Something went wrong", errorMsg: error.message });
-    next();
+    next(error);
   }
 };
 
@@ -186,17 +150,17 @@ const deleteLike = async (req, res, next) => {
     const update = {
       $pull: { likedBY: userId },
     };
-    const song = await SongModel.findByIdAndUpdate(conditions, update);    
-    const user = await UserModel.findByIdAndUpdate({ _id: userId, likedSongs: { $in: id } }, {
-      $pull: { likedSongs: id }
-    })
-    
+    const song = await SongModel.findByIdAndUpdate(conditions, update);
+    const user = await UserModel.findByIdAndUpdate(
+      { _id: userId, likedSongs: { $in: id } },
+      {
+        $pull: { likedSongs: id },
+      },
+    );
+
     res.status(200).send({ song: song, user: user });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next(error);
   }
 };
 
@@ -227,17 +191,13 @@ const playSong = async (req, res, next) => {
       },
     });
   } catch (error) {
-    res.status(500).send({
-      error: "Something went wrong",
-      errorMsg: error.message,
-    });
+    next(error);
   }
 };
 
 const SongControllerActions = {
   getAllSongs,
   getSongById,
-  createSong,
   updateSong,
   deleteSong,
   createSongWithCloudinary,

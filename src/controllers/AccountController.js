@@ -1,7 +1,7 @@
 import cloudinary from "../../cloudinary.js";
 import UserModel from "../models/User.js";
 
-const updateAccout = async (req, res) => {
+const updateAccout = async (req, res, next) => {
   const { uid, firstName, lastName, username } = req.body;
   const { path } = req.file;
 
@@ -23,10 +23,7 @@ const updateAccout = async (req, res) => {
     }
     res.status(200).send(account);
   } catch (error) {
-    res.status(500).send({
-      error: "something went wrong",
-      errorMsg: error.message,
-    });
+    next();
   }
 };
 

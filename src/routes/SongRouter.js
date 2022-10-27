@@ -2,7 +2,7 @@ import express from "express";
 import { upload } from "../../cloudinary.js";
 // import upload from "../../multer.js";
 import SongControllerActions from "../controllers/SongController.js";
-import authMiddleware from "../middleware/authMiddleware.js";
+import authMiddleware from "../middleware/Auth.js";
 
 const Router = express.Router;
 
@@ -22,7 +22,6 @@ const {
 
 SongRouter.get("/songs", getAllSongs);
 SongRouter.get("/songs/:id", getSongById);
-SongRouter.post("/songs", createSong);
 SongRouter.put("/songs/:id", updateSong);
 SongRouter.delete("/songs/:id", deleteSong);
 
