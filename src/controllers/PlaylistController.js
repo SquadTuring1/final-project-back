@@ -21,7 +21,14 @@ const getPlaylistById = async (req, res, next) => {
     const playlist = await PlaylistModel.findById(id)
       .populate({
         path: "songs",
-        select: ["title"],
+       
+      })
+      .populate({
+        path : 'songs',
+        populate : {
+          path : 'genre',
+          select: 'title'
+        }
       })
       .lean()
       .exec();
