@@ -1,5 +1,5 @@
 import express from "express";
-import { login, signup} from "../controllers/AccountController.js"
+import { login, signup } from "../controllers/AccountController.js";
 
 const Router = express.Router;
 
@@ -14,4 +14,4 @@ AccountRouter.post("/signup", signup);
 // AccountRouter.get("/account", getAccount)
 // AccountRouter.post("/account", saveAccount)
 
-export default AccountRouter
+export default AccountRouter;

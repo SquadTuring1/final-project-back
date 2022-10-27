@@ -11,7 +11,6 @@ export async function authMiddleware(req, res, next) {
 
     try {
       const userClaims = await auth.verifyIdToken(bearerToken);
-
       const { email, uid } = userClaims;
 
       req.user = {
@@ -30,3 +29,5 @@ export async function authMiddleware(req, res, next) {
     });
   }
 }
+
+export default authMiddleware;

@@ -2,6 +2,7 @@ import express from "express";
 import { upload } from "../../cloudinary.js";
 // import upload from "../../multer.js";
 import SongControllerActions from "../controllers/SongController.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const Router = express.Router;
 
