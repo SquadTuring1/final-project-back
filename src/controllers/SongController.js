@@ -1,4 +1,4 @@
-import { SongModel, GenreModel, UserModel } from "../models/index.js";
+import { SongModel, GenreModel, UserModel, AlbumModel } from "../models/index.js";
 import cloudinary from "../utils/cloudinary.js";
 import paginate from "express-paginate";
 
@@ -86,16 +86,18 @@ const createSongWithCloudinary = async (req, res, next) => {
 };
 
 const updateSong = async (req, res, next) => {
-  const { title, released, album, genre } = req.body;
+  const { title, released, album, genre, artist } = req.body;
   const { id } = req.params;
   try {
+    const albumInDB =  await AlbumModel.findOne({title: album})
+    console.log(albumInDB)
     const songToUpdate = await SongModel.findOneAndUpdate(
-      { id: id },
+      { _id: id },
       {
         $set: {
-          title,
-          released,
-          album,
+          title,          
+          album: albumInDB._id,
+          artist
         },
       },
     );
@@ -104,10 +106,11 @@ const updateSong = async (req, res, next) => {
     const update = {
       $addToSet: { songs: id },
     };
-    const updateGenre = await GenreModel.findOneAndUpdate(conditions, update);
+    const updateGenre = await GenreModel.findOneAndUpdate(conditions, update);    
     res.status(201).send({
       success: "Song was updated",
     });
+    
   } catch (error) {
     next(error);
   }
