@@ -1,4 +1,4 @@
-import cloudinary from "../../cloudinary.js";
+import cloudinary from "../utils/cloudinary.js";
 import UserModel from "../models/User.js";
 
 const updateAccout = async (req, res, next) => {
