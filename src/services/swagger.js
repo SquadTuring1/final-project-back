@@ -1,5 +1,6 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import * as path from "path";
 
 const options = {
   swaggerDefinition: {

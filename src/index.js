@@ -1,6 +1,6 @@
 import app from "./server.js";
 import CONFIG from "./config/config.js";
-import swaggerDocs from "./middleware/swagger/swagger.js";
+import swaggerDocs from "./services/swagger.js";
 import {
   connectDB,
   seedAlbums,
