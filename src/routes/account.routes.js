@@ -1,5 +1,5 @@
 import express from "express";
-import { upload } from "../../cloudinary.js";
+import { upload } from "../utils/cloudinary.js";
 import { signup, updateAccout } from "../controllers/AccountController.js";
 
 const Router = express.Router;

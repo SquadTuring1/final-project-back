@@ -2,15 +2,16 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
-import AccountRouter from "./routes/account-routes.js";
-import GenreRouter from "./routes/GenreRouter.js";
-import UserRouter from "./routes/UserRouter.js";
-import SongRouter from "./routes/SongRouter.js";
-import PlaylistRouter from "./routes/PlaylistRouter.js";
-// import ArtistRouter from "./routes/ArtistRouter.js";
-// import AlbumRouter from "./routes/AlbumRouter.js";
-import PersonalRouter from "./routes/PersonalRouter.js";
-import SearchRouter from "./routes/SearchRouter.js";
+import {
+  AccountRouter,
+  AlbumRouter,
+  PlaylistRouter,
+  PersonalRouter,
+  SearchRouter,
+  SongRouter,
+  UserRouter,
+  GenreRouter,
+} from "./routes/index.js";
 import bodyParser from "body-parser";
 import ErrorHandler from "./middleware/errorHandler.js";
 import paginate from "express-paginate";
@@ -36,12 +37,11 @@ app.use(paginate.middleware(10, 50));
 app.use(UserRouter);
 app.use(AccountRouter);
 app.use(SongRouter);
-// app.use(AlbumRouter);
 app.use(GenreRouter);
 app.use(PlaylistRouter);
 app.use(PersonalRouter);
 app.use(SearchRouter);
-
+app.use(AlbumRouter);
 // Error Middleware
 app.use(ErrorHandler);
 export default app;
