@@ -42,6 +42,8 @@ app.use(PlaylistRouter);
 app.use(PersonalRouter);
 app.use(SearchRouter);
 app.use(AlbumRouter);
+
 // Error Middleware
 app.use(ErrorHandler);
+
 export default app;

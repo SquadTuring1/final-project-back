@@ -1,5 +1,5 @@
 import SongModel from "../models/Song.js";
-import cloudinary from "../../cloudinary.js";
+import cloudinary from "../utils/cloudinary.js";
 import dotenv from "dotenv";
 import GenreModel from "../models/Genre.js";
 import UserModel from "../models/User.js";
@@ -207,7 +207,7 @@ const playSong = async (req, res, next) => {
   }
 };
 
-const SongControllerActions = {
+export {
   getAllSongs,
   getSongById,
   updateSong,
@@ -217,5 +217,3 @@ const SongControllerActions = {
   deleteLike,
   playSong,
 };
-
-export default SongControllerActions;

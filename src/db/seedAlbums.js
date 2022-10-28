@@ -1,7 +1,4 @@
-import mongoose from "mongoose";
 import AlbumModel from "../models/Album.js";
-import SongModel from "../models/Song.js";
-import connectDB from "./connect.js";
 
 const albums = [
   {

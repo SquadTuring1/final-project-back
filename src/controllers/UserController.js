@@ -64,11 +64,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-const UserControllerActions = {
-  getAllUsers,
-  updateCurrentUser,
-  getCurrentUser,
-  deleteUser,
-};
-
-export default UserControllerActions;
+export { getAllUsers, updateCurrentUser, getCurrentUser, deleteUser };

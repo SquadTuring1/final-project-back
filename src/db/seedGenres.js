@@ -29,7 +29,7 @@ const populateDocs = genres.map((genre) => ({
   song: [],
 }));
 
-const addGenres = async () => {
+const seedGenres = async () => {
   await GenreModel.insertMany(populateDocs);
 };
 
@@ -55,4 +55,4 @@ const updateGenresSongs = async () => {
   }
 };
 
-export { addGenres, updateGenresSongs };
+export { seedGenres, updateGenresSongs };
