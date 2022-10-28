@@ -1,8 +1,5 @@
-import SongModel from "../models/Song.js";
+import { SongModel, GenreModel, UserModel } from "../models/index.js";
 import cloudinary from "../utils/cloudinary.js";
-import dotenv from "dotenv";
-import GenreModel from "../models/Genre.js";
-import UserModel from "../models/User.js";
 import paginate from "express-paginate";
 
 const getAllSongs = async (req, res, next) => {
