@@ -1,4 +1,4 @@
-import AlbumModel from "../models/Album.js";
+import { AlbumModel } from "../models/index.js";
 
 const albums = [
   {

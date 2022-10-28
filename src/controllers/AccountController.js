@@ -1,5 +1,5 @@
 import cloudinary from "../utils/cloudinary.js";
-import UserModel from "../models/User.js";
+import { UserModel } from "../models/index.js";
 
 const updateAccout = async (req, res, next) => {
   const { uid, firstName, lastName, username } = req.body;

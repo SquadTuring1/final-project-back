@@ -1,8 +1,9 @@
-import AlbumModel from "../models/Album.js";
-import GenreModel from "../models/Genre.js";
-import SongModel from "../models/Song.js";
-import UserModel from "../models/User.js";
-
+import {
+  AlbumModel,
+  GenreModel,
+  SongModel,
+  UserModel,
+} from "../models/index.js";
 const songs = [
   {
     title: "First Space Voyage",

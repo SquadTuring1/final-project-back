@@ -25,7 +25,7 @@ connectDB().then(async function onServerInit() {
 /*
 Seeding to DB:
 
-In case you need to seed information to your DB, find below the the follwoing helpers functions, make sure to run them in this order inside the onServerInit function
+In case you need to seed information to your DB, find below the the follwoing helpers functions, make sure to run them in this order inside the onServerInit function.
 
   addGenres();
   seedAlbums();

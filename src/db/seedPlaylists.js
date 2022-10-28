@@ -1,6 +1,4 @@
-import PlaylistModel from "../models/Playlist.js";
-import SongModel from "../models/Song.js";
-import UserModel from "../models/User.js";
+import { PlaylistModel, SongModel, UserModel } from "../models/index.js";
 
 const sampleHandler = (array, amount) => {
   return array

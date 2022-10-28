@@ -1,6 +1,5 @@
 import cloudinary from "../utils/cloudinary.js";
-import PlaylistModel from "../models/Playlist.js";
-import UserModel from "../models/User.js";
+import { PlaylistModel, UserModel } from "../models/index.js";
 
 const getAllPlaylists = async (req, res, next) => {
   try {

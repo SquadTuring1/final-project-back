@@ -1,4 +1,4 @@
-import GenreModel from "../models/Genre.js";
+import { GenreModel } from "../models/index.js";
 
 const getAllGenres = async (req, res, next) => {
   try {

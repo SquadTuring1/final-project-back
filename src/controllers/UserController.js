@@ -1,4 +1,4 @@
-import UserModel from "../models/User.js";
+import { UserModel } from "../models/index.js";
 
 // For future perpouses
 

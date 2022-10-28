@@ -1,6 +1,4 @@
-import PlaylistModel from "../models/Playlist.js";
-import SongModel from "../models/Song.js";
-
+import { PlaylistModel, SongModel } from "../models/index.js";
 const search = async (req, res, next) => {
   const { query } = req.body;
 

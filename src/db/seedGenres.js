@@ -1,6 +1,4 @@
-import mongoose from "mongoose";
-import GenreModel from "../models/Genre.js";
-import SongModel from "../models/Song.js";
+import { GenreModel, SongModel } from "../models/index.js";
 
 const genres = [
   "Pop",

@@ -1,4 +1,4 @@
-import UserModel from "../models/User.js";
+import { UserModel } from "../models/index.js";
 
 const followSomeone = async (req, res, next) => {
   const { id: userToFollowId } = req.params;
