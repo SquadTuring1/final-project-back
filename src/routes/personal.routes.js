@@ -4,7 +4,7 @@ import {
   getMyFollowers,
   getMyFollowing,
   getMyLikedSongs,
-} from "../controllers/PersonalController.js";
+} from "../controllers/index.js";
 
 const Router = express.Router;
 

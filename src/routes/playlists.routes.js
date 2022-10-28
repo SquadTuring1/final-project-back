@@ -8,7 +8,7 @@ import {
   getPlaylistById,
   deletePlaylist,
   followPlaylist,
-} from "../controllers/PlaylistController.js";
+} from "../controllers/index.js";
 
 const Router = express.Router;
 

@@ -1,24 +1,20 @@
 import express from "express";
-import { upload } from "../../cloudinary.js";
-// import upload from "../../multer.js";
-import SongControllerActions from "../controllers/SongController.js";
-import authMiddleware from "../middleware/Auth.js";
-
-const Router = express.Router;
-
-const SongRouter = Router();
-
-const {
+import { upload } from "../utils/cloudinary.js";
+import {
   getAllSongs,
   getSongById,
-  createSong,
   updateSong,
   deleteSong,
   createSongWithCloudinary,
   likeASong,
   deleteLike,
   playSong,
-} = SongControllerActions;
+} from "../controllers/index.js";
+import authMiddleware from "../middleware/Auth.js";
+
+const Router = express.Router;
+
+const SongRouter = Router();
 
 SongRouter.get("/songs", getAllSongs);
 SongRouter.get("/songs/:id", getSongById);

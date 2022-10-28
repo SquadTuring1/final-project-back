@@ -4,8 +4,8 @@ import GenreRouter from "./genres.routes.js";
 import PlaylistRouter from "./playlists.routes.js";
 import PersonalRouter from "./personal.routes.js";
 import SearchRouter from "./search.routes.js";
-import SongRouter from "./search.routes.js";
-import UserRouter from "./user.routes.js";
+import SongRouter from "./songs.routes.js";
+import UserRouter from "./users.routes.js";
 
 export {
   AccountRouter,
