@@ -44,7 +44,9 @@ const getAllSongs = async (req, res, next) => {
 const getSongById = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const song = await SongModel.findByIdAndUpdate({ _id: 1 });
+    const song = await SongModel.findByIdAndUpdate({ _id: id }).populate({
+      path: "album",
+    });
     res.status(200).send(song);
   } catch (error) {
     next(error);
