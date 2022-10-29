@@ -4,6 +4,7 @@ import paginate from "express-paginate";
 
 const getAllSongs = async (req, res, next) => {
   const { limit, page } = req.query;
+
   try {
     const [result, itemCount] = await Promise.all([
       SongModel.find({})
@@ -57,7 +58,9 @@ const createSongWithCloudinary = async (req, res, next) => {
   const songPath = req.files.video[0].path;
   const thumbnailPath = req.files.image[0].path;
   const title = req.body.title;
-  const { userId } = req.body;
+  const { userId, genre } = req.body;
+
+  console.log(genre);
 
   try {
     const uploadedSong = await cloudinary.uploader.upload(songPath, {
@@ -70,6 +73,8 @@ const createSongWithCloudinary = async (req, res, next) => {
       resource_type: "image",
     });
 
+    const findGenre = await GenreModel.find({ title: genre });
+
     const { url: songUrl, duration, public_id } = uploadedSong;
     const { url: thumbnailUrl } = uploadThummail;
 
@@ -80,6 +85,7 @@ const createSongWithCloudinary = async (req, res, next) => {
       duration: duration,
       cloudinaryId: public_id,
       uploadedBy: userId,
+      genre: findGenre[0]._id,
     });
     res.status(200).send({ newSong });
   } catch (error) {
