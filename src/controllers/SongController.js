@@ -57,7 +57,7 @@ const createSongWithCloudinary = async (req, res, next) => {
   const songPath = req.files.video[0].path;
   const thumbnailPath = req.files.image[0].path;
   const title = req.body.title;
-  const uploadedBy = req.headers.user;
+  const { userId } = req.body;
 
   try {
     const uploadedSong = await cloudinary.uploader.upload(songPath, {
@@ -79,7 +79,7 @@ const createSongWithCloudinary = async (req, res, next) => {
       thumbnail: thumbnailUrl,
       duration: duration,
       cloudinaryId: public_id,
-      uploadedBy,
+      uploadedBy: userId,
     });
     res.status(200).send({ newSong });
   } catch (error) {
