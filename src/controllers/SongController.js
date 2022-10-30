@@ -226,6 +226,26 @@ const playSong = async (req, res, next) => {
   }
 };
 
+const getMostLikedSongs = async (req, res, next) => {
+  try {
+    const mostLikedSongs = await SongModel.aggregate([
+      { $unwind: "$likedBY" },
+      {
+        $group: { _id: "$_id", length: { $sum: 1 } },
+      },
+      { $sort: { length: -1 } },
+    ]).exec();
+
+    await SongModel.populate(mostLikedSongs, {
+      path: "songs",
+      select: ["title"],
+    });
+    res.send(mostLikedSongs);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   getAllSongs,
   getSongById,
@@ -235,4 +255,5 @@ export {
   likeASong,
   deleteLike,
   playSong,
+  getMostLikedSongs,
 };

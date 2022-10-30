@@ -9,6 +9,7 @@ import {
   likeASong,
   deleteLike,
   playSong,
+  getMostLikedSongs,
 } from "../controllers/index.js";
 import authMiddleware from "../middleware/Auth.js";
 
@@ -33,6 +34,7 @@ SongRouter.post(
   // like routes
   SongRouter.post("/songs/:id/like", likeASong),
   SongRouter.delete("/songs/:id/like", deleteLike),
+  SongRouter.get("/mostliked", getMostLikedSongs),
 
   // play song
   SongRouter.get("/songs/:id/play", playSong),

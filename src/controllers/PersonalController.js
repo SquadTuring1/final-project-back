@@ -7,7 +7,7 @@ const followSomeone = async (req, res, next) => {
     // updating followed user
     const updatedFollowedUser = await UserModel.findByIdAndUpdate(
       { _id: userToFollowId, followedBy: { $ne: me } },
-      { $addToSet: { followedBy: me } },
+      { $: { followedBy: me } },
     );
 
     // updating following user

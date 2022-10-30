@@ -20,6 +20,7 @@ import {
   likeASong,
   deleteLike,
   playSong,
+  getMostLikedSongs,
 } from "./SongController.js";
 
 //Album:
@@ -67,6 +68,7 @@ export {
   likeASong,
   deleteLike,
   playSong,
+  getMostLikedSongs,
   getAllAlbums,
   createAlbum,
   getAllGenres,
