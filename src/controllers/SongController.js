@@ -84,7 +84,7 @@ const createSongWithCloudinary = async (req, res, next) => {
     const newSong = await SongModel.create({
       title: title,
       fileUrl: songUrl,
-      thumbnail: thumbnailUrl,
+      imageUrl: thumbnailUrl,
       duration: duration,
       cloudinaryId: public_id,
       uploadedBy: userId,
@@ -95,7 +95,7 @@ const createSongWithCloudinary = async (req, res, next) => {
 
     const updateUserWithSong = await UserModel.findByIdAndUpdate(
       { _id: userId },
-      { $set: { ownSongs: newSong._id } },
+      { $addToSet: { ownSongs: newSong._id } },
       { new: true },
     );
 
