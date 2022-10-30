@@ -7,6 +7,7 @@ import {
   getMyFollowers,
   getMyFollowing,
   getMyLikedSongs,
+  getMyOwnSongs,
 } from "./PersonalController.js";
 
 //Song:
@@ -57,6 +58,7 @@ export {
   getMyFollowers,
   getMyFollowing,
   getMyLikedSongs,
+  getMyOwnSongs,
   getAllSongs,
   getSongById,
   updateSong,

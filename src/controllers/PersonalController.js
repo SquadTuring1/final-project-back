@@ -62,4 +62,25 @@ const getMyLikedSongs = async (req, res, next) => {
     next();
   }
 };
-export { followSomeone, getMyFollowers, getMyFollowing, getMyLikedSongs };
+
+const getMyOwnSongs = async (req, res, next) => {
+  const { id: me } = req.params;
+  try {
+    const myOwnSongs = await UserModel.findById({ _id: me }).populate({
+      path: "ownSongs",
+      select: ["title", "artist", "fileUrl", "imageUrl"],
+    });
+    const { ownSongs } = myOwnSongs;
+    res.status(200).send({ ownSongs });
+  } catch (error) {
+    next();
+  }
+};
+
+export {
+  followSomeone,
+  getMyFollowers,
+  getMyFollowing,
+  getMyLikedSongs,
+  getMyOwnSongs,
+};

@@ -1,4 +1,9 @@
-import { SongModel, GenreModel, UserModel, AlbumModel } from "../models/index.js";
+import {
+  SongModel,
+  GenreModel,
+  UserModel,
+  AlbumModel,
+} from "../models/index.js";
 import cloudinary from "../utils/cloudinary.js";
 import paginate from "express-paginate";
 
@@ -60,8 +65,6 @@ const createSongWithCloudinary = async (req, res, next) => {
   const title = req.body.title;
   const { userId, genre } = req.body;
 
-  console.log(genre);
-
   try {
     const uploadedSong = await cloudinary.uploader.upload(songPath, {
       folder: "songs",
@@ -72,12 +75,12 @@ const createSongWithCloudinary = async (req, res, next) => {
       folder: "images",
       resource_type: "image",
     });
-
+    // update genre
     const findGenre = await GenreModel.find({ title: genre });
 
     const { url: songUrl, duration, public_id } = uploadedSong;
     const { url: thumbnailUrl } = uploadThummail;
-
+    // creating new song
     const newSong = await SongModel.create({
       title: title,
       fileUrl: songUrl,
@@ -87,6 +90,15 @@ const createSongWithCloudinary = async (req, res, next) => {
       uploadedBy: userId,
       genre: findGenre[0]._id,
     });
+
+    // updating user with their own song
+
+    const updateUserWithSong = await UserModel.findByIdAndUpdate(
+      { _id: userId },
+      { $set: { ownSongs: newSong._id } },
+      { new: true },
+    );
+
     res.status(200).send({ newSong });
   } catch (error) {
     next(error);
@@ -97,15 +109,15 @@ const updateSong = async (req, res, next) => {
   const { title, released, album, genre, artist } = req.body;
   const { id } = req.params;
   try {
-    const albumInDB =  await AlbumModel.findOne({title: album})
-    console.log(albumInDB)
+    const albumInDB = await AlbumModel.findOne({ title: album });
+    console.log(albumInDB);
     const songToUpdate = await SongModel.findOneAndUpdate(
       { _id: id },
       {
         $set: {
-          title,          
+          title,
           album: albumInDB._id,
-          artist
+          artist,
         },
       },
     );
@@ -114,11 +126,10 @@ const updateSong = async (req, res, next) => {
     const update = {
       $addToSet: { songs: id },
     };
-    const updateGenre = await GenreModel.findOneAndUpdate(conditions, update);    
+    const updateGenre = await GenreModel.findOneAndUpdate(conditions, update);
     res.status(201).send({
       success: "Song was updated",
     });
-    
   } catch (error) {
     next(error);
   }
