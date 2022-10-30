@@ -68,6 +68,12 @@ const UserSchema = new mongoose.Schema(
         ref: "playlist",
       },
     ],
+    ownSongs: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "song",
+      },
+    ],
   },
   { timestamps: true },
 );
