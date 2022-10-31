@@ -1,6 +1,6 @@
 /**
  * @swagger
-{
+
 {
   "openapi": "3.0.3",
   "info": {
@@ -321,7 +321,7 @@
             "example": "Success"
           }
         }
-      }}
+      }
     }
   }
 }
