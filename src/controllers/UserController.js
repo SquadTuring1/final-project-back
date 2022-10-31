@@ -41,7 +41,7 @@ const updateCurrentUser = async (req, res, next) => {
 const getCurrentUser = async (req, res, next) => {
   const { uid } = req.params;
   try {
-    const currentUser = await UserModel.find({ uid: uid })
+    const currentUser = await UserModel.find({ uid })
       .populate({
         path: "ownPlaylists",
       })

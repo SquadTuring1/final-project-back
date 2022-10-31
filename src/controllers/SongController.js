@@ -13,7 +13,7 @@ const getAllSongs = async (req, res, next) => {
   try {
     const [result, itemCount] = await Promise.all([
       SongModel.find({})
-        .limit(limit)
+        // .limit(limit)
         .skip(req.skip)
         .populate({
           path: "album",
@@ -54,6 +54,18 @@ const getSongById = async (req, res, next) => {
       path: "album",
     });
     res.status(200).send(song);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSongsByUserId = async (req, res, next) => {
+  const { id } = req.params;
+  console.log(id)
+  try {
+    const user = await UserModel.find({ _id: id })
+    console.log(user[0].ownSongs)
+    res.status(200).send(songs);
   } catch (error) {
     next(error);
   }
@@ -110,7 +122,6 @@ const updateSong = async (req, res, next) => {
   const { id } = req.params;
   try {
     const albumInDB = await AlbumModel.findOne({ title: album });
-    console.log(albumInDB);
     const songToUpdate = await SongModel.findOneAndUpdate(
       { _id: id },
       {
@@ -253,6 +264,7 @@ const getMostLikedSongs = async (req, res, next) => {
 export {
   getAllSongs,
   getSongById,
+  getSongsByUserId,
   updateSong,
   deleteSong,
   createSongWithCloudinary,

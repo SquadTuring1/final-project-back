@@ -19,7 +19,7 @@ PlaylistRouter.get("/playlists/:id", getPlaylistById);
 PlaylistRouter.post("/playlists", createPlaylist);
 PlaylistRouter.patch(
   "/playlists/:id",
-  upload.single("thumbnail"),
+  // upload.single("thumbnail"),
   updatePlaylistInfoById,
 );
 PlaylistRouter.patch("/playlists/:id/follow", followPlaylist);
