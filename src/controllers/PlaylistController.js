@@ -59,19 +59,21 @@ const createPlaylist = async (req, res, next) => {
 
 const updatePlaylistInfoById = async (req, res, next) => {
   const { id } = req.params;
-  const { description, title } = req.body;
-  const thumbnailPath = req.file.path;
+  const { title } = req.body;
+  console.log('id', id)
+  console.log('title', title)  
+  // const thumbnailPath = req.file.path;
 
   try {
-    const uploadToCloudinary = await cloudinary.uploader.upload(thumbnailPath, {
-      folder: "playlist-thumbnail",
-      resource_type: "image",
-    });
-    const { url: thumbnailUrl } = uploadToCloudinary;
+    // const uploadToCloudinary = await cloudinary.uploader.upload(thumbnailPath, {
+    //   folder: "playlist-thumbnail",
+    //   resource_type: "image",
+    // });
+    // const { url: thumbnailUrl } = uploadToCloudinary;
 
     const conditions = { _id: id };
     const update = {
-      $set: { description: description, title: title, thumbnail: thumbnailUrl },
+      $set: { title: title },
     };
 
     const playlistToUpdate = await PlaylistModel.findByIdAndUpdate(
