@@ -3,7 +3,7 @@ import { upload } from "../utils/cloudinary.js";
 import {
   getAllSongs,
   getSongById,
-  getSongsByUserId,
+  getSongsByUser,
   updateSong,
   deleteSong,
   createSongWithCloudinary,
@@ -42,7 +42,7 @@ SongRouter.post(
 
 
   // get own songs by user
-  SongRouter.get('/songs/:id/user', getSongsByUserId),
+  SongRouter.get('/songs/:id/user', getSongsByUser),
 
 );
 
