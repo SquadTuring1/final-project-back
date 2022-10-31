@@ -61,16 +61,9 @@ const updatePlaylistInfoById = async (req, res, next) => {
   const { id } = req.params;
   const { title } = req.body;
   console.log('id', id)
-  console.log('title', title)  
-  // const thumbnailPath = req.file.path;
+  console.log('title', title)    
 
-  try {
-    // const uploadToCloudinary = await cloudinary.uploader.upload(thumbnailPath, {
-    //   folder: "playlist-thumbnail",
-    //   resource_type: "image",
-    // });
-    // const { url: thumbnailUrl } = uploadToCloudinary;
-
+  try {  
     const conditions = { _id: id };
     const update = {
       $set: { title: title },
