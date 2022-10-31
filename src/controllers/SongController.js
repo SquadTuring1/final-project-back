@@ -229,17 +229,21 @@ const playSong = async (req, res, next) => {
 const getMostLikedSongs = async (req, res, next) => {
   try {
     const mostLikedSongs = await SongModel.aggregate([
-      { $unwind: "$likedBY" },
+      // Project with an array length
       {
-        $group: { _id: "$_id", length: { $sum: 1 } },
+        $project: {
+          title: 1,
+          artist: 1,
+          imageUrl: 1,
+          fileUrl: 1,
+          likedBY: 1,
+          length: { $size: "$likedBY" },
+        },
       },
+      // Sort on the "length"
       { $sort: { length: -1 } },
-    ]).exec();
+    ]);
 
-    await SongModel.populate(mostLikedSongs, {
-      path: "songs",
-      select: ["title"],
-    });
     res.send(mostLikedSongs);
   } catch (error) {
     next(error);
