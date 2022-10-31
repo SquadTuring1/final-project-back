@@ -19,13 +19,14 @@ const getAllUsers = async (req, res, next) => {
 };
 
 const updateCurrentUser = async (req, res, next) => {
-  const { firstName, lastName, avatar, email } = req.body;
+  const { firstName, lastName, avatar, username } = req.body;
   const { uid } = req.params;
+  console.log(username);
 
   try {
     const updatedUser = await UserModel.findOneAndUpdate(
       { uid: uid },
-      { $set: { firstName, lastName, avatar, email } },
+      { $set: { firstName, lastName, avatar, username } },
       { new: true },
     );
     res.status(200).send({
@@ -40,7 +41,7 @@ const updateCurrentUser = async (req, res, next) => {
 const getCurrentUser = async (req, res, next) => {
   const { uid } = req.params;
   try {
-    const currentUser = await UserModel.findById({ _id: uid })
+    const currentUser = await UserModel.find({ uid: uid })
       .populate({
         path: "ownPlaylists",
       })
