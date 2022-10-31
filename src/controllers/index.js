@@ -14,7 +14,7 @@ import {
 import {
   getAllSongs,
   getSongById,
-  getSongsByUserId,
+  getSongsByUser,
   updateSong,
   deleteSong,
   createSongWithCloudinary,
@@ -63,7 +63,7 @@ export {
   getMyOwnSongs,
   getAllSongs,
   getSongById,
-  getSongsByUserId,
+  getSongsByUser,
   updateSong,
   deleteSong,
   createSongWithCloudinary,

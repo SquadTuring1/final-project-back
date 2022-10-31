@@ -59,12 +59,16 @@ const getSongById = async (req, res, next) => {
   }
 };
 
-const getSongsByUserId = async (req, res, next) => {
-  const { id } = req.params;
+const getSongsByUser = async (req, res, next) => {
+  const {id} = req.params;
   console.log(id)
   try {
-    const user = await UserModel.find({ _id: id })
-    console.log(user[0].ownSongs)
+    const user = await UserModel.find({ _id: id }).populate({
+      path: 'ownSongs',
+    }).populate({
+      path: 'likedSongs',
+    })
+    const songs = [...user[0].likedSongs, ...user[0].ownSongs]
     res.status(200).send(songs);
   } catch (error) {
     next(error);
@@ -264,7 +268,7 @@ const getMostLikedSongs = async (req, res, next) => {
 export {
   getAllSongs,
   getSongById,
-  getSongsByUserId,
+  getSongsByUser,
   updateSong,
   deleteSong,
   createSongWithCloudinary,
