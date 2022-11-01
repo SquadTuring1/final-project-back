@@ -95,6 +95,13 @@ npm install
   - Everything settled in config.js
   -  When you start the project, you can use seed files to fill your databases (seeAlbum.js, seedGenres.js, seedPlaylist.js, seedSongs.js, seedUsers.js)
   
+  ## Authors
+
+- [Sefi Cohen](https://github.com/seficohen1)
+-  [Jose Cuevas](https://github.com/jose-cuevas)
+- [Jesus Herrera](https://github.com/Jesusjha)
+- [Blake Johnson](https://github.com/blakejohns5)
+- [Sofia Romera](https://github.com/Sofianct)
 
 
 ## Licensing
