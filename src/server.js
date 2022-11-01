@@ -13,7 +13,7 @@ import {
   GenreRouter,
 } from "./routes/index.js";
 import bodyParser from "body-parser";
-import ErrorHandler from "./middleware/errorHandler.js";
+import ErrorHandler from "./middleware/ErrorHandler.js";
 import paginate from "express-paginate";
 const { json } = bodyParser;
 
