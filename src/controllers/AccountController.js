@@ -28,14 +28,16 @@ const updateAccout = async (req, res, next) => {
 };
 
 const signup = async (req, res, next) => {
-  const { token, uid, email } = req.body;
+  const { token, uid, email, username, } = req.body;
+  
   try {
     const newUser = await UserModel.create({
       token,
       uid,
       email,
-    });
-    res.status(201).send({ data: "Success! " });
+      username,
+    });    
+    res.status(201).send({ newUser });
   } catch (error) {
     console.log(error);
     next(error);
