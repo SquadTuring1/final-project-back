@@ -1,11 +1,13 @@
 
-<img  src="https://raw.githubusercontent.com/SquadTuring1/final-project-front/develop/src/assets/images/logo-mammoth2-vertical.png"  width="21%"  alt="Logo of the project"  align="right">
+<img style="margin-top: 3rem" src="https://raw.githubusercontent.com/SquadTuring1/final-project-front/develop/src/assets/images/logo-mammoth2-vertical.png"  width="21%"  alt="Logo of the project"  align="right">
+
+<div style="width: 70%">
 
 # 🚀 Mammoth | Turing Squad
 <br>
 
 
-<div style="width: 70%">
+
 
 >Music application made with the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
 >
