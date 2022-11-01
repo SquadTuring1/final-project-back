@@ -2,18 +2,24 @@
 <img  src="https://raw.githubusercontent.com/SquadTuring1/final-project-front/develop/src/assets/images/logo-mammoth2-vertical.png"  width="21%"  alt="Logo of the project"  align="right">
 
 # 🚀 Mammoth | Turing Squad
+<br>
 
 
+<div style="width: 70%">
 
 >Music application made with the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
 >
-Users can login, register, listen to music, upload their own music, create playlists and add to favorites.
-
-  
+<br>
+Users can create an account, log in, listen to music, upload their own music, create playlists, add to favorites, and more. 
+</div>
+<br>
 
 ##  Getting started
+<br>
 
->Create .env file, using `.env.example` and add Firebase settings and Base URL
+>Create an .env file, using variables from `.env.example` and add Firebase settings and Base URL (http://localhost:4000)
+
+Then use `npm ` commands to install package dependencies and start up the application on localhost.
 
   ```shell
 
@@ -26,49 +32,49 @@ npm install
 npm run dev
 
 ```
-Install package dependencies and run on Localhost.
+<br>
 
   
-
 ## Developing
+<br>
 
-  
+### Technologies 
 
-### Technologies / Built With
+A variety of technnologies were used during app development:
 
-Technnologies used during app development include:
-
-- NodeJs
-- Express
+- NodeJS
+- ExpressJS
 - Mongo
 - Moongose
 - Cloudinary
 - Firebase
   
   
-### Dependencies / Prerequisites
+### Dependencies 
 
 Dependencies and libraries included in this project:
 
-- dot env
-- nodemon
-- express-paginate
-- helmet
-- morgan
-- cors
-- multer 
+- Dotenv
+- Nodemon
+- Express-paginate
+- Helmet
+- Morgan
+- Cors
+- Multer 
 
 ### Features
 
-- CRUD operations with Users, Songs, Albums, Playlist and Genre
-- Play music
+- CRUD operations, full API with Users, Songs, Albums, Playlist and Genre
+- Cloudinary as storage for images and audio
+- Pagination using express-paginate middleware
+- Authentication using Firebase
 
-  
+<br>
 
-### Setting up Dev  
+## Setting up Dev  
+<br>
 
-
-Developer can all functionalities must clone the following repository:
+To access all the functionalities, developers must clone the following repository:
 ```shell
 
 git clone https://github.com/SquadTuring1/final-project-back.git
@@ -78,7 +84,7 @@ cd project-folder/
 npm install
 
 ```
-To see this web on your browser clone this repository:
+To see this web in a browser, clone this repository for the frontend:
 ```shell
 
 git clone https://github.com/SquadTuring1/final-project-front.git
@@ -89,12 +95,15 @@ npm install
 
 
 ```    
+<br>
 
 ## Configuration
 
-  - Everything settled in config.js
-  -  When you start the project, you can use seed files to fill your databases (seeAlbum.js, seedGenres.js, seedPlaylist.js, seedSongs.js, seedUsers.js)
-  
+  - Development and production configurations in can be found in `src/config/config.js
+  - After starting the project using `npm`, databases can be seeded using the following files: seedAlbum.js, seedGenres.js, seedPlaylist.js, seedSongs.js, seedUsers.js
+
+  <br>
+
   ## Authors
 
 - [Sefi Cohen](https://github.com/seficohen1)
@@ -103,6 +112,7 @@ npm install
 - [Blake Johnson](https://github.com/blakejohns5)
 - [Sofia Romera](https://github.com/Sofianct)
 
+<br>
 
 ## Licensing
 
@@ -110,11 +120,11 @@ npm install
 
 © MIT
 
-  
+<br>  
 
 # What's next?
 
 - Testing with JEST
-- Implemented Laravel for statistics
-- Swagger for APIS documentation
-- Integrate optimistic updates with favoritesv
+- Implementation of Laravel and PHP API points for collecting statistics
+- Completion of implementation of Swagger for API documentation
+
